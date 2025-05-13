@@ -1,0 +1,3 @@
+[submodule "WorkflowDiagram"]
+	path = WorkflowDiagram
+	url = https://github.com/ArsenAbazian/WorkflowDiagram.git
