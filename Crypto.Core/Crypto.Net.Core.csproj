@@ -1,0 +1,52 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>TRACE;CORE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Exchanges\HitBtc\**" />
+    <Compile Remove="Exchanges\Tinkoff\**" />
+    <Compile Remove="Exchanges\Yobit\**" />
+    <EmbeddedResource Remove="Exchanges\HitBtc\**" />
+    <EmbeddedResource Remove="Exchanges\Tinkoff\**" />
+    <EmbeddedResource Remove="Exchanges\Yobit\**" />
+    <None Remove="Exchanges\HitBtc\**" />
+    <None Remove="Exchanges\Tinkoff\**" />
+    <None Remove="Exchanges\Yobit\**" />
+    <Compile Remove="Exchanges\ExmoOld\**" />
+    <EmbeddedResource Remove="Exchanges\ExmoOld\**" />
+    <None Remove="Exchanges\ExmoOld\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Common\DepositInfo.cs" />
+    <Compile Remove="Helpers\SlackBot.cs" />
+    <Compile Remove="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack.NetCore" Version="1.5.0.1" />
+    <PackageReference Include="HttpToSocks5Proxy" Version="1.4.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.12.0" />
+    <PackageReference Include="Microsoft.AspNet.SignalR.Client" Version="2.4.1" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="SuperSocket.ClientEngine.Core" Version="0.10.0" />
+    <PackageReference Include="Telegram.Bot" Version="15.2.0" />
+    <PackageReference Include="WebSocket4Net" Version="0.15.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\XmlSerialization\XmlSerialization\XmlSerialization.Core.csproj" />
+  </ItemGroup>
+
+</Project>
