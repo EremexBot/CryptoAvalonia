@@ -1,3 +1,10 @@
+### **How to build**
+```
+git clone https://github.com/EremexBot/CryptoAvalonia
+cd CryptoAvalonia
+git submodule update --init
+```
+
 ### **License**
 CryptoTradingFramework © 2024 by Abazian Arsen is licensed under CC BY-NC 4.0
 
