@@ -1,4 +1,4 @@
-name: Publish Demo
+name: Publish App
 
 on:
   workflow_dispatch:
