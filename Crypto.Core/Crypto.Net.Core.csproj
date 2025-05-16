@@ -46,7 +46,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\XmlSerialization\XmlSerialization\XmlSerialization.Core.csproj" />
+    <ProjectReference Include="..\XmlSerialization\XmlSerialization\XmlSerialization.Core.csproj" />
   </ItemGroup>
 
 </Project>

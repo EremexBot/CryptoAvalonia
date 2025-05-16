@@ -30,9 +30,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\WorkflowDiagram\WorkflowDiagram.Nodes.Base\WorkflowDiagram.Nodes.Base.Core.Develop.csproj" />
       <ProjectReference Include="..\Crypto.Core\Crypto.Net.Core.csproj" />
       <ProjectReference Include="..\Workflow.Nodes.Crypto\Workflow.Nodes.Crypto.Net.Develop.csproj" />
+      <ProjectReference Include="..\WorkflowDiagram\WorkflowDiagram.Nodes.Base\WorkflowDiagram.Nodes.Base.Core.Develop.csproj" />
+      <ProjectReference Include="..\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.Core.Develop.csproj" />
     </ItemGroup>
 
     <ItemGroup>
