@@ -1,3 +1,6 @@
 [submodule "WorkflowDiagram"]
 	path = WorkflowDiagram
 	url = https://github.com/ArsenAbazian/WorkflowDiagram.git
+[submodule "XmlSerialization"]
+	path = XmlSerialization
+	url = https://github.com/ArsenAbazian/XmlSerialization
