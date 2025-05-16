@@ -1,4 +1,4 @@
-name: Publish Demo
+name: Publish CryptoAvalonia
 
 on:
   workflow_dispatch:
@@ -26,12 +26,12 @@ jobs:
         run: mkdir upload
 
       - name: Publish win-x64
-        run: dotnet publish ./DemoCenter/DemoCenter.Desktop/DemoCenter.Desktop.csproj -r win-x64 -c Release --sc /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true -o ./publish/win64
+        run: dotnet publish ./CryptoMarketClient.Avalonia/CryptoMarketClient.csproj  -r win-x64 -c Release --sc /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true -o ./publish/win64
 
       - name: Zip win-x64
         run: |
           $files = Get-ChildItem -Path ./publish/win64/* -Recurse -Exclude *.pdb
-          Compress-Archive -Path $files.FullName -DestinationPath ./upload/EMX.Demo.Desktop.win-x64.zip
+          Compress-Archive -Path $files.FullName -DestinationPath ./upload/CryptoMarketClient.Desktop.win-x64.zip
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4.3.1
@@ -50,12 +50,11 @@ jobs:
         run: mkdir upload
 
       - name: Publish linux-x64
-        run: dotnet publish ./DemoCenter/DemoCenter.Desktop/DemoCenter.Desktop.csproj -r linux-x64 -c Release --sc /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true -o ./publish/linux64
+        run: dotnet publish ./CryptoMarketClient.Avalonia/CryptoMarketClient.csproj  -r linux-x64 -c Release --sc /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true -o ./publish/linux64
       - name: Rename app
-        run: mv ./publish/linux64/DemoCenter.Desktop ./publish/linux64/DemoCenter.App
 
       - name: Zip linux-x64
-        run: zip -j -r ./upload/EMX.Demo.Desktop.linux-x64.zip ./publish/linux64 -x "*.pdb"
+        run: zip -j -r ./upload/CryptoMarketClient.Desktop.linux-x64.zip ./publish/linux64 -x "*.pdb"
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4.3.1
@@ -74,12 +73,11 @@ jobs:
         run: mkdir upload
 
       - name: Publish linux-arm64
-        run: dotnet publish ./DemoCenter/DemoCenter.Desktop/DemoCenter.Desktop.csproj -r linux-arm64 -c Release --sc /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true -o ./publish/linuxArm64
+        run: dotnet publish ./CryptoMarketClient.Avalonia/CryptoMarketClient.csproj  -r linux-arm64 -c Release --sc /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true -o ./publish/linuxArm64
       - name: Rename app
-        run: mv ./publish/linuxArm64/DemoCenter.Desktop ./publish/linuxArm64/DemoCenter.App
 
       - name: Zip linux-x64
-        run: zip -j -r ./upload/EMX.Demo.Desktop.linux-arm64.zip ./publish/linuxArm64 -x "*.pdb"
+        run: zip -j -r ./upload/CryptoMarketClient.Desktop.linux-arm64.zip ./publish/linuxArm64 -x "*.pdb"
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4.3.1
