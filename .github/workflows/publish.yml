@@ -11,7 +11,6 @@ on:
         options:
           - 'windows'
           - 'linux'
-          - 'linux-rpi'
           - 'all'
 
 jobs:
@@ -60,27 +59,4 @@ jobs:
         uses: actions/upload-artifact@v4.3.1
         with:
           name: linux
-          path: ./upload
-
-  linux-rpi:
-    if: ${{ github.event.inputs.platform == 'linux-rpi' || github.event.inputs.platform == 'all' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4.1.1
-
-      - name: Make upload directory
-        run: mkdir upload
-
-      - name: Publish linux-arm64
-        run: dotnet publish ./CryptoMarketClient.Avalonia/CryptoMarketClient.csproj  -r linux-arm64 -c Release --sc /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true -o ./publish/linuxArm64
-      - name: Rename app
-
-      - name: Zip linux-x64
-        run: zip -j -r ./upload/CryptoMarketClient.Desktop.linux-arm64.zip ./publish/linuxArm64 -x "*.pdb"
-
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v4.3.1
-        with:
-          name: linux-rpi
           path: ./upload
