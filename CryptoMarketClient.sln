@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder1", "Solution
 		..\..\Directory.Build.props = ..\..\Directory.Build.props
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoMarketClient", "CryptoMarketClient.Avalonia\CryptoMarketClient.csproj", "{8B7BABB7-FDA9-4795-BC9B-6DEA67A363CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{FD206D24-743C-420A-82EC-F4298F47D7CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD206D24-743C-420A-82EC-F4298F47D7CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD206D24-743C-420A-82EC-F4298F47D7CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B7BABB7-FDA9-4795-BC9B-6DEA67A363CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B7BABB7-FDA9-4795-BC9B-6DEA67A363CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B7BABB7-FDA9-4795-BC9B-6DEA67A363CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B7BABB7-FDA9-4795-BC9B-6DEA67A363CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

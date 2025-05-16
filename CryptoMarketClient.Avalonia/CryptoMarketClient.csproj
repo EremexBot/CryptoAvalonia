@@ -25,6 +25,11 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Crypto.Core\Crypto.Net.Core.csproj" />
+      <ProjectReference Include="..\Crypto.UI.Avalonia\Crypto.UI.Avalonia.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
       <EmbeddedResource Update="Resources\AccountCollectionFormResources.resx">
         <Generator>PublicResXFileCodeGenerator</Generator>
         <LastGenOutput>AccountCollectionFormResources.Designer.cs</LastGenOutput>
@@ -45,11 +50,6 @@
         <Generator>PublicResXFileCodeGenerator</Generator>
         <LastGenOutput>ExchangeViewResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\..\..\Crypto.Core\Crypto.Net.Core.csproj" />
-      <ProjectReference Include="..\..\..\Crypto.UI.Avalonia\Crypto.UI.Avalonia.csproj" />
     </ItemGroup>
 
     <ItemGroup>
