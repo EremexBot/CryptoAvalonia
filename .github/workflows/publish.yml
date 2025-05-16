@@ -10,7 +10,6 @@ on:
         type: choice
         options:
           - 'windows'
-          - 'linux'
           - 'all'
 
 jobs:
@@ -36,27 +35,4 @@ jobs:
         uses: actions/upload-artifact@v4.3.1
         with:
           name: windows
-          path: ./upload
-
-  linux:
-    if: ${{ github.event.inputs.platform == 'linux' || github.event.inputs.platform == 'all' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4.1.1
-
-      - name: Make upload directory
-        run: mkdir upload
-
-      - name: Publish linux-x64
-        run: dotnet publish ./CryptoMarketClient.Avalonia/CryptoMarketClient.csproj  -r linux-x64 -c Release --sc /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true -o ./publish/linux64
-      - name: Rename app
-
-      - name: Zip linux-x64
-        run: zip -j -r ./upload/CryptoMarketClient.Desktop.linux-x64.zip ./publish/linux64 -x "*.pdb"
-
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v4.3.1
-        with:
-          name: linux
           path: ./upload
