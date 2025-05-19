@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Crypto.Core;
 using Crypto.Core.Helpers;
-using Crypto.Net.Core.Helpers;
 using CryptoMarketClient.Utils;
 
 namespace CryptoMarketClient.ViewModels;

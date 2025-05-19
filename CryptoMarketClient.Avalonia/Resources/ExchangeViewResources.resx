@@ -82,7 +82,7 @@
         <value>Hr 24 Low</value>
     </data>
     <data name="Column.Volume" xml:space="preserve">
-        <value>Base Volume</value>
+        <value>B. Volume</value>
     </data>
     <data name="Column_Trend" xml:space="preserve">
         <value>Trend</value>

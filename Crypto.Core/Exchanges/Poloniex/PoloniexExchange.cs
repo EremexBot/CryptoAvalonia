@@ -162,6 +162,10 @@ namespace Crypto.Core {
         protected DateTime PoloniexTime(JsonHelperToken item) {
             return epoch.AddMilliseconds(item.ValueLong).ToLocalTime();
         }
+        
+        protected DateTime PoloniexTime(long timeMs) {
+            return epoch.AddMilliseconds(timeMs).ToLocalTime();
+        }
 
         protected void OnProcessOrderBookLv2(JsonHelperToken root, string message) {
             JsonHelperToken data = root.GetProperty("data");
@@ -453,12 +457,11 @@ namespace Crypto.Core {
             long startMs = (long)(start.Subtract(epoch)).TotalMilliseconds;
             long endMs = startMs + periodInSeconds * 1000;
 
-            long periodMin = periodInSeconds / 60;
             string symbol = Uri.EscapeDataString(ticker.CurrencyPair);
             string interval = AllowedCandleStickIntervals
                 .FirstOrDefault(i => i.TotalMinutes == candleStickPeriodMin)?.Command;
             string address = $"https://api.poloniex.com/markets/{symbol}/candles?interval={interval}&startTime={startMs}&endTime={endMs}";
-            byte[] bytes = null;
+            byte[] bytes;
             try {
                 bytes = GetDownloadBytes(address);
             }
@@ -480,32 +483,30 @@ namespace Crypto.Core {
                 return null;
             }
 
-            //root = root.Items[0];
-
-            DateTime startTime = new DateTime(1970, 1, 1);
-
             ResizeableArray<CandleStickData> list = new ResizeableArray<CandleStickData>(root.ItemsCount);
             
             for(int i = 0; i < root.ItemsCount; i++) {
                 JsonHelperToken[] item = root.Items[i].Items;
                 
-                long sec = FastValueConverter.ConvertPositiveLong(item[12].Value);
-                DateTime time = startTime.AddMilliseconds(sec);
+                long msec = FastValueConverter.ConvertPositiveLong(item[12].Value);
+                DateTime time = PoloniexTime(msec);
                 if(time.Minute % candleStickPeriodMin != 0)
                     continue;
                 if(list.Count > 0 && list.Last().Time == time)
                     continue;
                 
-                CandleStickData data = new CandleStickData();
-                data.Time = time;
-                data.Low = item[0].ValueDouble;
-                data.High = item[1].ValueDouble;
-                data.Open = item[2].ValueDouble;
-                data.Close = item[3].ValueDouble;
-                data.QuoteVolume = item[4].ValueDouble;
-                data.Volume = item[5].ValueDouble;
-                data.WeightedAverage = item[10].ValueDouble;
-                
+                CandleStickData data = new CandleStickData
+                {
+                    Time = time,
+                    Low = item[0].ValueDouble,
+                    High = item[1].ValueDouble,
+                    Open = item[2].ValueDouble,
+                    Close = item[3].ValueDouble,
+                    QuoteVolume = item[4].ValueDouble,
+                    Volume = item[5].ValueDouble,
+                    WeightedAverage = item[10].ValueDouble
+                };
+
                 list.Add(data);
             }
             List<TradeInfoItem> trades = GetTradeVolumesForCandleStick(ticker, startMs, endMs);
@@ -1082,6 +1083,8 @@ namespace Crypto.Core {
             string text = System.Text.Encoding.ASCII.GetString(data);
             if(string.IsNullOrEmpty(text))
                 return false;
+            if (text.StartsWith("<!DOCTYPE"))
+                return false;
 
             lock(openedOrders) {
                 if(ticker != null)
@@ -1089,7 +1092,7 @@ namespace Crypto.Core {
                 openedOrders.Clear();
                 if(ticker == null) {
                     JObject res = JsonConvert.DeserializeObject<JObject>(text);
-                    foreach(JProperty prop in res.Children()) {
+                    foreach(JProperty prop in res.Children().OfType<JProperty>()) {
                         if(prop.Name == "error") {
                             Telemetry.Default.TrackEvent("poloniex.ongetopenedorders", new string[] { "error", prop.Value<string>() }, true);
                             Debug.WriteLine("OnGetOpenedOrders fails: " + prop.Value<string>());

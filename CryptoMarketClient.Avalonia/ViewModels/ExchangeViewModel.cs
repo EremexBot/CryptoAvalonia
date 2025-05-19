@@ -93,10 +93,21 @@ public partial class ExchangeViewModel : ViewModelBase, IViewDocument
             SelectedMarket = Markets[0];
     }
 
+    partial void OnShowOnlyFavoritesChanged(bool value)
+    {
+        UpdateMarketTickers();
+    }
+    
     partial void OnSelectedMarketChanged(string value)
     {
+        UpdateMarketTickers();
+    }
+
+    private void UpdateMarketTickers()
+    {
         Tickers.Clear();
-        Tickers.AddRange(Exchange.Tickers.Where(t => t.MarketCurrency == SelectedMarket));
+        Tickers.AddRange(Exchange.Tickers.Where(t => t.MarketCurrency == SelectedMarket 
+                                                     && (!ShowOnlyFavorites || (ShowOnlyFavorites && t.IsSelected))));
         UpdatePinnedItems();
     }
 

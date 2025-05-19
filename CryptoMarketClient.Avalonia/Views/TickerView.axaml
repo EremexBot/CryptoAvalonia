@@ -17,11 +17,13 @@
         <mxb:ToolbarContainerControl ItemsSource="{CompiledBinding Toolbars, DataType=viewModels:TickerViewModel}">
                 
         </mxb:ToolbarContainerControl>
-        <mxd:DockManager Grid.Row="1" BorderThickness="0">
+        <mxd:DockManager Grid.Row="1">
             <mxd:DockGroup Orientation="Horizontal">
                 <mxd:DockGroup DockWidth="80*" Orientation="Vertical">
                     <mxd:DockGroup DockHeight="60*">
-                        <mxd:DockPane Header="Chart"></mxd:DockPane>
+                        <mxd:DockPane Header="Chart">
+                            <views:ChartView DataContext="{Binding Chart}"></views:ChartView>
+                        </mxd:DockPane>
                     </mxd:DockGroup>
                     <mxd:TabbedGroup DockHeight="40*">
                         <mxd:DockPane Header="Opened Orders"></mxd:DockPane>

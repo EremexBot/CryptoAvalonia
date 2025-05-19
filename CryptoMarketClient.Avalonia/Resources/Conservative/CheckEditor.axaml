@@ -1,0 +1,120 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mxe="https://schemas.eremexcontrols.net/avalonia/editors">
+    
+    <ControlTheme x:Key="{x:Type mxe:CheckEditor}" TargetType="mxe:CheckEditor" BasedOn="{StaticResource {x:Type mxe:CheckEditor}}">
+        <Setter Property="CornerRadius" Value="{DynamicResource EditorCornerRadius}"/>
+        <Setter Property="CheckedGlyph" Value="{SvgImage avares://CryptoMarketClient/Resources/Icons/Checkbox True.svg}"/>
+        <Setter Property="UncheckedGlyph" Value="{SvgImage avares://CryptoMarketClient/Resources/Icons/Checkbox False.svg}"/>
+        <Setter Property="IndeterminateGlyph" Value="{SvgImage avares://CryptoMarketClient/Resources/Icons/Checkbox Indeterminate.svg}"/>
+        
+        <Style Selector="^:activeMode">
+            <Setter Property="Focusable" Value="True"/>
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <DockPanel>
+                        <TextBlock x:Name="PART_ErrorTextPresenter"
+                                   DockPanel.Dock="Bottom"
+                                   Text="{TemplateBinding ErrorText}"
+                                   FontSize="{DynamicResource EditorErrorFontSize}"
+                                   Foreground="{DynamicResource TextEditorErrorTextForeground}"
+                                   Margin="{StaticResource ErrorTextPresenterMargin}"
+                                   TextWrapping="Wrap"/>
+                        <Panel x:Name="PART_RealEditorPanel">
+                            <Grid Name="PART_RootContainer"
+                                Background="{TemplateBinding Background}"
+                                IsHitTestVisible="{Binding !ReadOnly, RelativeSource={RelativeSource TemplatedParent}}">
+                                <CheckBox Grid.Column="1" Name="PART_RealEditor"
+                                          HorizontalAlignment="Stretch"
+                                          VerticalAlignment="Stretch"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Content="{TemplateBinding Content}"
+                                          IsThreeState="{TemplateBinding IsThreeState}"
+                                          Foreground="{TemplateBinding Foreground}"
+                                          CornerRadius="{TemplateBinding CornerRadius}"
+                                          BorderBrush="Transparent"
+                                          Focusable="{TemplateBinding Focusable}"
+                                          BorderThickness="0"
+                                          Theme="{StaticResource CheckEditorCheckerTheme}"
+                                          MinHeight="0"
+                                          Classes.secondary="{TemplateBinding SecondaryAppearance}"/>
+                            </Grid>
+                            <Border Name="PART_RootBorder"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    Background="{x:Null}"
+                                    MinHeight="0"/>
+                        </Panel>
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter>
+            <Style Selector="^ /template/ TextBlock#PART_ErrorTextPresenter">
+                <Setter Property="IsVisible" Value="False" />
+            </Style>
+            <Style Selector="^[ActualErrorShowMode=Full] /template/ Border#PART_RootBorder">
+                <Setter Property="BorderBrush" Value="{DynamicResource TextEditorFullErrorBorderBrush}"/>
+            </Style>
+            <Style Selector="^[ActualErrorShowMode=Full] /template/ TextBlock#PART_ErrorTextPresenter">
+                <Setter Property="IsVisible" Value="True" />
+            </Style>
+            <Style Selector="^[ActualErrorShowMode=Full] /template/ Panel#PART_RealEditorPanel">
+                <Setter Property="MinHeight" Value="{Binding $parent[mxe:BaseEditor].MinHeight}" />
+            </Style>
+            <Style Selector="^[ActualErrorShowMode=Inplace][IsEnabled=true] /template/ CheckBox#PART_RealEditor">
+                <Setter Property="Theme" Value="{StaticResource CheckEditorCheckerErrorTheme}"/>
+            </Style>
+        </Style>
+    </ControlTheme>
+    
+    <ControlTheme x:Key="CheckEditorCheckerTheme" TargetType="CheckBox" BasedOn="{StaticResource CheckEditorCheckerTheme}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Panel Background="Transparent">
+                        <Grid x:Name="RootGrid" ColumnDefinitions="Auto,*">
+                            <Border x:Name="PART_Border"
+                                    Grid.ColumnSpan="2"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="{TemplateBinding CornerRadius}" />
+                            <Grid x:Name="PART_CheckContainer" VerticalAlignment="Center"
+                                  IsVisible="{Binding $parent[mxe:CheckEditor].ActualStateGlyph, Converter={x:Static ObjectConverters.IsNull}}">
+                                <Border x:Name="FocusRectangle"
+                                        BorderThickness="{StaticResource FocusAdornerBorderThickness}"
+                                        Padding="{StaticResource FocusAdornerBorderThickness}"
+                                        CornerRadius="{DynamicResource CheckEditorGlyphCornerRadius}">
+                                    <Border x:Name="NormalRectangle"
+                                            UseLayoutRounding="False"
+                                            Height="16"
+                                            Width="16" />
+                                </Border>
+                                <Path x:Name="CheckGlyph" Stretch="None" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Image x:Name="PART_StateIndicator" VerticalAlignment="Center" Margin="{StaticResource CheckEditorImageMargin}"
+                                   Source="{Binding $parent[mxe:CheckEditor].ActualStateGlyph}"
+                                   IsVisible="{Binding $self.Source, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                   Stretch="None"/>
+                            <ContentPresenter x:Name="ContentPresenter"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              Content="{TemplateBinding Content}"
+                                              Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              Grid.Column="1" />
+                        </Grid>
+                    </Panel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+	    
+	    <Style Selector="^ /template/ Border#NormalRectangle">
+		    <Setter Property="BorderBrush" Value="{DynamicResource CheckBoxRectBorderBrush}" />
+		    <Setter Property="Background" Value="{DynamicResource CheckBoxRectBackground}" />
+		    <Setter Property="BorderThickness" Value="{StaticResource EditorBorderThickness}"/>
+		    <Setter Property="CornerRadius" Value="{DynamicResource CheckEditorGlyphCornerRadius}"/>
+	    </Style>
+    </ControlTheme>
+</ResourceDictionary>

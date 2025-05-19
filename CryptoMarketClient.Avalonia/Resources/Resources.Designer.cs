@@ -105,15 +105,6 @@ namespace CryptoMarketClient.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter.
-        /// </summary>
-        public static string EnterButton {
-            get {
-                return ResourceManager.GetString("EnterButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Exchanges.
         /// </summary>
         public static string Exchanges {
@@ -191,6 +182,15 @@ namespace CryptoMarketClient.Resources {
         public static string OkCaption {
             get {
                 return ResourceManager.GetString("OkCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh.
+        /// </summary>
+        public static string RefreshChartTitle {
+            get {
+                return ResourceManager.GetString("RefreshChartTitle", resourceCulture);
             }
         }
         
