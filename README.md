@@ -24,14 +24,6 @@ This repository contains an Avalonia-based framework and client application for 
 
 ![readme-mdi-floatingpanel](/images/readme-mdi-floatingpanel.png)
 
-
-
-![CryptoTraderAuto](https://github.com/ArsenAbazian/CryptoTradingFramework/blob/master/Help/ExchangesForm.png)
-![CryptoTraderAuto](https://user-images.githubusercontent.com/18391055/186918434-a3970be3-173b-47f3-bf8e-d3f96dd09189.png)
-![CryptoTraderAuto](https://github.com/ArsenAbazian/CryptoTradingFramework/blob/master/Help/CryptoTraderAuto-TickersScreen.png)
-![CryptoTraderAuto](https://github.com/ArsenAbazian/CryptoTradingFramework/blob/master/Help/WhatsNew_01_25_2022.png)
-![CryptoTraderAuto](https://github.com/ArsenAbazian/CryptoTradingFramework/blob/master/Help/CryptoTraderAuto-AtGlance.png)
-
 The CryptoTradingFramework library allows you to create custom applications for cryptocurrency exchanges, supporting the following features:
 
 * Monitoring
@@ -58,7 +50,6 @@ The `CryptoMarketClient` app utilizes the [EMX Controls library](https://www.nug
 - CartesianChart — Allows you to plot most popular charts: Candlestick, Line, Bar, Range Bar, and more.
 - DockManager — Allows you to build and manage Microsoft Visual Studio-inspired docking interfaces.
 
-<!-- PoloniexClient allows you to grab and save historical data from exchanges and then apply them for strategies simulation. **This application is under development.** -->
 
 _This repository is an Avalonia-based port of the [CryptoTradingFramework](https://github.com/ArsenAbazian/CryptoTradingFramework) repository written in WinForms. The current repository is under active development._
 
@@ -70,20 +61,5 @@ If you'd like to thank me and help fuel future development, cryptocurrency donat
 * **XRP**     rEb8TK3gBgk5auZkwc6sHnwrGVJH8DuaLh            Tag = 106961926
 * **LTC** 	  LPKGsLjnpc3xRsvPYYHuXhpFpx6zhpVg9n 
 
-### **Roadmap** 
-Currently I am working on adding LOW-CODE platform support for customizing strategies. Please see https://github.com/ArsenAbazian/WorkflowDiagram for greater details.
 
 
-
-
-## Latest Updates 
-
-[Update From 11-09-2022](https://github.com/ArsenAbazian/CryptoTradingFramework/wiki/Update-From-11-09-2022)
-
-[Update From 23-03-2022](https://github.com/ArsenAbazian/CryptoTradingFramework/wiki/Update-From-23-03-2022)
-
-[Update From 24-02-2022](https://github.com/ArsenAbazian/CryptoTradingFramework/wiki/Update-From-24-02-2022)
-
-[Update From 09-02-2022](https://github.com/ArsenAbazian/CryptoTradingFramework/wiki/Update-From-09-02-2022)
-
-[Update From 25-01-2022](https://github.com/ArsenAbazian/CryptoTradingFramework/wiki/Update-From-01-25-2022)
