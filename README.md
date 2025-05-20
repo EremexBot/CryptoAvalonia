@@ -14,6 +14,18 @@ CryptoTradingFramework © 2025 by Abazian Arsen. The code in this repo is availa
 
 This repository contains an Avalonia-based framework and client application for cryptocurrency exchange trading, supporting both manual and automated strategies.
 
+![readme-client](/images/readme-client.png)
+
+![readme-grid-flat-keys](/images/readme-grid-flat-keys.png)
+
+![readme-grid-flat-list](/images/readme-grid-flat-list.png)
+
+![readme-chart-crosshair](/images/readme-chart-crosshair.png)
+
+![readme-mdi-floatingpanel](/images/readme-mdi-floatingpanel.png)
+
+
+
 ![CryptoTraderAuto](https://github.com/ArsenAbazian/CryptoTradingFramework/blob/master/Help/ExchangesForm.png)
 ![CryptoTraderAuto](https://user-images.githubusercontent.com/18391055/186918434-a3970be3-173b-47f3-bf8e-d3f96dd09189.png)
 ![CryptoTraderAuto](https://github.com/ArsenAbazian/CryptoTradingFramework/blob/master/Help/CryptoTraderAuto-TickersScreen.png)
