@@ -38,8 +38,7 @@ namespace Crypto.Core.Helpers {
             //cl.Proxy = proxy;
 
             //proxy.ResolveHostnamesLocally = true;
-            //InnerClient = new Telegram.Bot.TelegramBotClient("410447550:AAGz1QRPgdoh5tuddcMleFYI9Ttw-Ytn9Fs", proxy);
-            InnerClient = new Telegram.Bot.TelegramBotClient("410447550:AAGz1QRPgdoh5tuddcMleFYI9Ttw-Ytn9Fs");
+            InnerClient = new Telegram.Bot.TelegramBotClient("my-key");
         }
         bool RegisterNewUsers(Update[] result) {
             bool registered = false;
