@@ -13,6 +13,7 @@ namespace CryptoMarketClient.ViewModels;
 public partial class TickerViewModel : ViewModelBase, IViewDocument
 {
     [ObservableProperty] private OrderBookViewModel orderBook;
+    [ObservableProperty] private ChartViewModel chart;
     [ObservableProperty] private TradeViewModel trades;
     [ObservableProperty] private BidAskSettingsViewModel bidAskSettings;
     [ObservableProperty] private Ticker ticker;
@@ -24,6 +25,7 @@ public partial class TickerViewModel : ViewModelBase, IViewDocument
         orderBook = new OrderBookViewModel(documentManager, toolbarController, ticker);
         trades = new TradeViewModel(documentManager, toolbarController, ticker);
         bidAskSettings = new BidAskSettingsViewModel(documentManager, toolbarController, ticker);
+        chart = new ChartViewModel(documentManager, toolbarController, ticker);
         orderBook.AskClicked += bidAskSettings.OnAskClicked;
         orderBook.BidClicked += bidAskSettings.OnBidClicked;
         Name = Ticker.HostName + " - " + Ticker.Name;
@@ -51,6 +53,7 @@ public partial class TickerViewModel : ViewModelBase, IViewDocument
             Trades.UpdateTrades();
 
         Trades.Attach();
+        Chart.OnAttached(view);
         SubscribeEvents();
         
         UpdateTimer.Start();

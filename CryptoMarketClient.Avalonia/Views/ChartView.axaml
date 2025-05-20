@@ -1,0 +1,81 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mxc="https://schemas.eremexcontrols.net/avalonia/charts"
+             xmlns:viewModels="clr-namespace:CryptoMarketClient.ViewModels"
+             xmlns:mxb="https://schemas.eremexcontrols.net/avalonia/bars"
+             xmlns:utils="clr-namespace:CryptoMarketClient.Utils"
+             xmlns:res="clr-namespace:CryptoMarketClient.Resources"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="CryptoMarketClient.Views.ChartView">
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <viewModels:ChartViewModel />
+    </Design.DataContext>
+    
+    <mxb:ToolbarManager>
+        <mxb:ToolbarManager.DataTemplates>
+            <utils:DataTemplateSource Source="/Resources/SharedTemplates.axaml"/>
+        </mxb:ToolbarManager.DataTemplates>
+        <Grid RowDefinitions="Auto, *">
+            <mxb:ToolbarContainerControl DockType="Top">
+                <mxb:Toolbar AllowDragToolbar="False" AllowVisibilityCustomization="False" ShowCustomizationButton="False">
+                    <mxb:ToolbarMenuItem x:Name="PeriodMenu" Header="{Binding CurrentPeriod}">
+                        <mxb:ToolbarCheckItemGroup x:Name="PeriodGroup" ItemsSource="{Binding PeriodItems}" CheckType="Radio">
+                            
+                        </mxb:ToolbarCheckItemGroup>
+                    </mxb:ToolbarMenuItem>
+                    <mxb:ToolbarButtonItem x:Name="RefreshChart" Header="{x:Static res:Resources.RefreshChartTitle}"
+                                           Command="{Binding RefreshChartCommand}"/>
+                </mxb:Toolbar>
+            </mxb:ToolbarContainerControl>
+            <mxc:CartesianChart x:Name="ChartControl" BorderThickness="0" Grid.Row="1">
+                <mxc:CartesianSeries AxisYKey="Volume" DataAdapter="{Binding Volume}" SeriesName="Volume">
+                    <mxc:CartesianSideBySideBarSeriesView Color="#20A0A0A0" BorderThickness="0"
+                                                          BarWidth="{Binding BarWidth}" />
+                </mxc:CartesianSeries>
+                <mxc:CartesianSeries AxisYKey="Volume" DataAdapter="{Binding Buy}" SeriesName="BuyVolume"
+                                     IsVisible="{Binding SupportBuySellVolume}">
+                    <mxc:CartesianSideBySideBarSeriesView Color="#6000787A" BorderThickness="0"
+                                                          BarWidth="{Binding BarWidth}" />
+                </mxc:CartesianSeries>
+                <mxc:CartesianSeries AxisYKey="Volume" DataAdapter="{Binding Sell}" SeriesName="SellVolume"
+                                     IsVisible="{Binding SupportBuySellVolume}">
+                    <mxc:CartesianSideBySideBarSeriesView Color="#60BD1436" BorderThickness="0"
+                                                          BarWidth="{Binding BarWidth}" />
+                </mxc:CartesianSeries>
+                <mxc:CartesianSeries AxisYKey="Price" DataAdapter="{Binding Price}" SeriesName="Price">
+                    <mxc:CartesianCandlestickSeriesView Color="#00787A" ReductionColor="#BD1436" CandleWidth="0.6" />
+                </mxc:CartesianSeries>
+                <mxc:CartesianSeries AxisYKey="Price" DataAdapter="{Binding Events}" SeriesName="Events">
+                    <mxc:CartesianPointSeriesView Color="#00787A" ShowInCrosshair="False" />
+                </mxc:CartesianSeries>
+
+                <mxc:CartesianChart.AxesX>
+                    <mxc:AxisX ShowTitle="False" EnableScrolling="True" EnableZooming="True">
+                        <mxc:AxisXRange MinSideMargin="0.01" MaxSideMargin="0.01" />
+                        <mxc:AxisX.ScaleOptions>
+                            <mxc:DateTimeScaleOptions MeasureUnit="{Binding MeasureUnit}"
+                                                      MeasureUnitFactor="{Binding MeasureUnitFactor}" />
+                        </mxc:AxisX.ScaleOptions>
+                    </mxc:AxisX>
+                </mxc:CartesianChart.AxesX>
+
+                <mxc:CartesianChart.AxesY>
+                    <mxc:AxisY Title="Price" Position="Far" Key="Price">
+                        <mxc:AxisYRange AlwaysShowZeroLevel="False" />
+                    </mxc:AxisY>
+                    <mxc:AxisY Title="Volume" Position="Near" Key="Volume">
+                        <mxc:AxisYRange />
+                    </mxc:AxisY>
+                </mxc:CartesianChart.AxesY>
+
+                <mxc:CartesianChart.CrosshairOptions>
+                    <mxc:CrosshairOptions SeriesLabelMode="OneForAllSeries" />
+                </mxc:CartesianChart.CrosshairOptions>
+            </mxc:CartesianChart>
+        </Grid>
+    </mxb:ToolbarManager>
+</UserControl>

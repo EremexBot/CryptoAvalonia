@@ -7,8 +7,10 @@
              xmlns:icons="https://schemas.eremexcontrols.net/avalonia/icons"
              xmlns:mxe="https://schemas.eremexcontrols.net/avalonia/editors"
              xmlns:mxdg="https://schemas.eremexcontrols.net/avalonia/datagrid"
+             xmlns:mx="https://schemas.eremexcontrols.net/avalonia"
              xmlns:vm="clr-namespace:CryptoMarketClient.ViewModels"
              xmlns:controls="clr-namespace:Crypto.UI.Avalonia.Controls;assembly=Crypto.UI.Avalonia"
+             xmlns:core="clr-namespace:Crypto.Core;assembly=Crypto.Net.Core"
              xmlns:visuals="clr-namespace:Eremex.AvaloniaUI.Controls.DataControl.Visuals;assembly=Eremex.Avalonia.Controls"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
              xmlns:mxlv="https://schemas.eremexcontrols.net/avalonia/listview"
@@ -75,11 +77,11 @@
                                               DoubleTapped="TickersGrid_OnDoubleTapped">
                         <mxdg:GridColumn FieldName="IsSelected" Header=" " Width="Auto"/>
                         <mxdg:GridColumn FieldName="BaseCurrency" Header="{x:Static res:ExchangeViewResources.Column_BaseCurrency}" AllowEditing="False" Width="Auto"/>
-                        <mxdg:GridColumn FieldName="LastString" Header="{x:Static res:ExchangeViewResources.Column_Last}" AllowEditing="False"/>
-                        <mxdg:GridColumn FieldName="Hr24HighString" Header="{x:Static res:ExchangeViewResources.Column_Hr24High}" AllowEditing="False"/>
-                        <mxdg:GridColumn FieldName="Hr24LowString" Header="{x:Static res:ExchangeViewResources.Column_Hr24Low}" AllowEditing="False"/>
-                        <mxdg:GridColumn FieldName="BaseVolumeString" Header="{x:Static res:ExchangeViewResources.Column_Volume}" AllowEditing="False"/>
-                        <mxdg:GridColumn FieldName="Sparkline" Header="{x:Static res:ExchangeViewResources.Column_Trend}" Width="180" AllowEditing="False">
+                        <mxdg:GridColumn FieldName="LastString" Header="{x:Static res:ExchangeViewResources.Column_Last}" AllowEditing="False" Width="Auto"/>
+                        <mxdg:GridColumn FieldName="Hr24HighString" Header="{x:Static res:ExchangeViewResources.Column_Hr24High}" AllowEditing="False" Width="Auto"/>
+                        <mxdg:GridColumn FieldName="Hr24LowString" Header="{x:Static res:ExchangeViewResources.Column_Hr24Low}" AllowEditing="False" Width="Auto"/>
+                        <mxdg:GridColumn FieldName="BaseVolumeString" Header="{x:Static res:ExchangeViewResources.Column_Volume}" AllowEditing="False" Width="Auto"/>
+                        <mxdg:GridColumn FieldName="Sparkline" Header="{x:Static res:ExchangeViewResources.Column_Trend}" Width="140" AllowEditing="False">
                             <mxdg:GridColumn.CellTemplate>
                                 <DataTemplate>
                                     <controls:SparklineControl DataSource="{CompiledBinding Value, DataType=visuals:CellData}"
@@ -89,7 +91,7 @@
                                 </DataTemplate>
                             </mxdg:GridColumn.CellTemplate>
                         </mxdg:GridColumn>
-                        <mxdg:GridColumn FieldName="Trade" UnboundDataType="{x:Type system:String}" Header=" " AllowEditing="True" Width="Auto">
+                        <mxdg:GridColumn FieldName="Trade" UnboundDataType="{x:Type system:String}" Header=" " AllowEditing="False" Width="Auto">
                             <mxdg:GridColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Classes="TradeButton"

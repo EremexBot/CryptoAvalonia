@@ -104,7 +104,17 @@ public class InvertedList<T> : IReadOnlyList<T>, IResizeableArray, IListSource, 
 
     object IList.this[int index]
     {
-        get => _source[_source.Count - 1 - index];
+        get
+        {
+            try
+            {
+                return _source[_source.Count - 1 - index];
+            }
+            catch
+            {
+                return default(T);
+            }
+        }
         set => _source[_source.Count - 1 - index] = (T)value;
     }
 

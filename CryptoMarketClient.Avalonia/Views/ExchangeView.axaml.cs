@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Layout;
@@ -11,6 +13,7 @@ using Crypto.Core;
 using CryptoMarketClient.Utils;
 using CryptoMarketClient.ViewModels;
 using Eremex.AvaloniaUI.Controls.Common;
+using Eremex.AvaloniaUI.Controls.DataControl.Visuals;
 using Eremex.AvaloniaUI.Controls.DataGrid.Visuals;
 
 namespace CryptoMarketClient.Views;
@@ -22,8 +25,8 @@ public partial class ExchangeView : UserControl, IExchangeView
         InitializeComponent();
     }
 
+    private MxVirtualizingControl _virtualizingControl;
     private ScrollViewer _scrollViewer;
-    private MxVirtualizingControl _mxVirtualizingControl;
     protected ExchangeViewModel ViewModel { get; set; }
     protected override void OnDataContextChanged(EventArgs e)
     {
@@ -54,31 +57,31 @@ public partial class ExchangeView : UserControl, IExchangeView
     private void TickersGridOnTemplateApplied(object sender, TemplateAppliedEventArgs e)
     {
         if(_scrollViewer != null)
-            _scrollViewer.EffectiveViewportChanged -= ScrollViewerOnEffectiveViewportChanged;
+            _scrollViewer.ScrollChanged -= ScrollViewerOnScrollChanged;
         _scrollViewer = e.NameScope.Find<ScrollViewer>("PART_ScrollViewer");
-        if (_scrollViewer != null)
-            _scrollViewer.EffectiveViewportChanged += ScrollViewerOnEffectiveViewportChanged;
-        
-        _mxVirtualizingControl = e.NameScope.Find<MxVirtualizingControl>("PART_VirtualizingControl");
-        
-        UpdateVisibleItems();
-    }
-    
-    private void ScrollViewerOnEffectiveViewportChanged(object sender, EffectiveViewportChangedEventArgs e)
-    {
+        _virtualizingControl = e.NameScope.Find<MxVirtualizingControl>("PART_VirtualizingControl");
+        if(_scrollViewer != null)
+            _scrollViewer.ScrollChanged += ScrollViewerOnScrollChanged;
         UpdateVisibleItems();
     }
 
-    private List<object> visibleItems;
+    private void ScrollViewerOnScrollChanged(object sender, ScrollChangedEventArgs e)
+    {
+        Dispatcher.UIThread.Post(UpdateVisibleItems, DispatcherPriority.Render);
+    }
+
+    private List<object> _visibleItems;
     private void UpdateVisibleItems()
     {
-        if(_mxVirtualizingControl == null)
-            return;
-        visibleItems = _mxVirtualizingControl.GetContainers(false)
-            .Where(x => x.Bounds.Intersects(_mxVirtualizingControl.Bounds))
-            .OrderBy(it => it.Bounds.Y)
-            .Select(it => ((DataGridRowControl)it).Row)
-            .ToList();
+         if(_scrollViewer == null)
+             return;
+         _visibleItems = new List<object>();
+         List<DataGridRowControl> rows = new List<DataGridRowControl>(); 
+         foreach(var c in _virtualizingControl.GetContainers(false)) {
+             if(c is DataGridRowControl dg)
+                rows.Add(dg);
+         }
+        _visibleItems = rows.OrderBy(it => it.Bounds.Y).Select(it => ((DataGridRowControl)it).Row).ToList();
     }
 
     private void UnsubscribeEvents(ExchangeViewModel viewModel)
@@ -89,13 +92,11 @@ public partial class ExchangeView : UserControl, IExchangeView
 
     private void OnRequestVisibleTickers(object sender, RequestVisibleItemsEventArgs e)
     {
-        if(_scrollViewer == null)
-            return;
-        if(visibleItems == null || visibleItems.Count == 0)
+        if(_visibleItems == null || _visibleItems.Count == 0)
         {
             Dispatcher.UIThread.Invoke(UpdateVisibleItems);
         }
-        e.VisibleItems = visibleItems;
+        e.VisibleItems = _visibleItems;
     }
 
     private void SubscribeEvents(ExchangeViewModel viewModel)

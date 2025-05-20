@@ -164,7 +164,40 @@ namespace Crypto.Core {
         public virtual string MarketName { get; set; }
         public abstract string CurrencyPair { get; set; }
         public virtual string SubscriptionName { get { return CurrencyPair; } }
-        public bool IsSelected { get; set; }
+        private bool isSelected;
+
+        [XmlIgnore]
+        public bool IsSelected
+        {
+            get => isSelected;
+            set
+            {
+                if (IsSelected == value)
+                    return;
+                isSelected = value;
+                OnIsSelectedChanged();
+            }
+        }
+
+        private void OnIsSelectedChanged()
+        {
+            if (IsSelected)
+            {
+                if (Exchange.PinnedTickers.FirstOrDefault(t => t.MarketCurrency == MarketCurrency && t.BaseCurrency == BaseCurrency) != null)
+                    return;
+                Exchange.PinnedTickers.Add(new PinnedTickerInfo() { MarketCurrency = MarketCurrency, BaseCurrency = BaseCurrency });
+            }
+            else
+            {
+                var pt = Exchange.PinnedTickers.FirstOrDefault(t =>
+                    t.MarketCurrency == MarketCurrency && t.BaseCurrency == BaseCurrency);
+                if (pt != null)
+                    Exchange.PinnedTickers.Remove(pt);
+            }
+
+            Exchange.Save();
+        }
+
         public bool IsOpened { get; set; }
         //Image logo;
         //protected bool LogoLoaded { get; set; }
@@ -260,31 +293,34 @@ namespace Crypto.Core {
         }
 
         [XmlIgnore]
-        public BindingList<TradeStatisticsItem> TradeStatistic { get; } = new BindingList<TradeStatisticsItem>();
+        public BindingList<TradeStatisticsItem> TradeStatistic { get; } = new();
 
-        ResizeableArray<CandleStickData> candleStickData;
+        ResizeableArray<CandleStickData> _candleStickData;
         protected void OnCandleStickDataItemsChanged(object sender, ListChangedEventArgs e) {
+            count = CandleStickData.Count;
             RaiseCandleStickChanged(e);
         }
+
+        private int count;
         [XmlIgnore]
         public ResizeableArray<CandleStickData> CandleStickData {
             get {
-                if(candleStickData == null) {
-                    candleStickData = new ResizeableArray<Crypto.Core.CandleStickData>();
-                    candleStickData.ListChanged += OnCandleStickDataItemsChanged;
+                if(_candleStickData == null) {
+                    _candleStickData = new ResizeableArray<CandleStickData>();
+                    _candleStickData.ListChanged += OnCandleStickDataItemsChanged;
                 }
-                return candleStickData;
+                return _candleStickData;
             }
             set {
                 if(CandleStickData != null)
                     CandleStickData.ListChanged -= OnCandleStickDataItemsChanged;
-                candleStickData = value;
+                _candleStickData = value;
                 if(CandleStickData != null)
                     CandleStickData.ListChanged += OnCandleStickDataItemsChanged;
                 RaiseCandleStickChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
             }
         }
-        public BindingList<CurrencyStatusHistoryItem> MarketCurrencyStatusHistory { get; set; } = new BindingList<CurrencyStatusHistoryItem>();
+        public BindingList<CurrencyStatusHistoryItem> MarketCurrencyStatusHistory { get; set; } = new();
 
         [XmlIgnore]
         public OrderBook OrderBook { get; private set; }
@@ -1359,6 +1395,11 @@ namespace Crypto.Core {
         protected void RaiseEventsChanged(NotifyCollectionChangedEventArgs e) {
             if(eventsChanged != null)
                 eventsChanged.Invoke(this, e);
+        }
+
+        public void ClearCandlestick()
+        {
+            CandleStickData.Clear();
         }
     }
 

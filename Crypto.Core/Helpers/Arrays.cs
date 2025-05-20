@@ -92,7 +92,6 @@ namespace Crypto.Core.Helpers {
             Items[Count] = item;
             Count++;
             OnInsert(item, Count - 1);
-            
         }
 
         public bool AllowNotifyPropertyChanged { get; set; }
@@ -401,6 +400,7 @@ namespace Crypto.Core.Helpers {
             startIndex += count;
             for(int i = prevCount - 1; i >= startIndex; i--)
                 Items[startIndex + i] = prevItems[i];
+            Count = maxCount;
             
             RaiseListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
         }

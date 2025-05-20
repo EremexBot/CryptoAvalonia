@@ -56,7 +56,7 @@
     <data name="Column_Time" xml:space="preserve">
         <value>Время</value>
     </data>
-    <data name="EnterButton" xml:space="preserve">
-        <value>Войти</value>
+    <data name="RefreshChartTitle" xml:space="preserve">
+        <value>Обновить</value>
     </data>
 </root>

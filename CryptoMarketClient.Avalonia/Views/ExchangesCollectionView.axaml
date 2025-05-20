@@ -5,13 +5,12 @@
              xmlns:mx="https://schemas.eremexcontrols.net/avalonia"
              xmlns:viewModels="clr-namespace:CryptoMarketClient.ViewModels"
              xmlns:mxlv="https://schemas.eremexcontrols.net/avalonia/listview"
-             xmlns:res="clr-namespace:CryptoMarketClient.Resources"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CryptoMarketClient.Views.ExchangesCollectionView">
     <UserControl.Styles>
         <Style Selector="mxlv|ListViewItemControl/template/ContentPresenter#PART_Content">
             <Setter Property="Margin" Value="0"/>
-            <Setter Property="CornerRadius" Value="7"/>
+            <Setter Property="CornerRadius" Value="1"/>
         </Style>
         <Style Selector="mxlv|ListViewItemControl:pointerover/template/Rectangle#PART_Border">
             <Setter Property="Fill" Value="{DynamicResource Fill/Accent/Highlighting/Row/Enabled}"/>
@@ -24,7 +23,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <mx:ShadowControl CornerRadius="7">
+                        <mx:ShadowControl CornerRadius="1">
                             <Grid>
                                 <Rectangle x:Name="PART_Border"/>
                                 <ContentPresenter x:Name="PART_Content" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
@@ -38,14 +37,14 @@
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
         <Style Selector="Border.ExchangeCardUpperPart">
-            <Setter Property="CornerRadius" Value="7, 7, 0, 0"/>
+            <Setter Property="CornerRadius" Value="1, 1, 0, 0"/>
             <Setter Property="Padding" Value="16"/>
         </Style>
         <Style Selector="Grid.ExchangeCardLowerPartInner">
             <Setter Property="Margin" Value="16"/>
         </Style>
         <Style Selector="Border.ExchangeCardLowerPartBackground">
-            <Setter Property="CornerRadius" Value="0, 0, 7, 7"/>
+            <Setter Property="CornerRadius" Value="0, 0, 1, 1"/>
             <Setter Property="Background" Value="{DynamicResource Fill/Accent/Highlighting/Row/Enabled}"/>
             <Setter Property="Opacity" Value="0.6"/>
         </Style>
@@ -67,7 +66,7 @@
                         <Border Grid.RowSpan="3" Classes="ExchangeCardLowerPartBackground"/>
                         <Grid RowDefinitions="Auto, *, Auto" Classes="ExchangeCardLowerPartInner">
                             <TextBlock Classes="ExchangeName" Text="{CompiledBinding Name}"/>
-                            <Button Classes="ExchangeButton" Grid.Row="2" Content="{x:Static res:Resources.EnterButton}" HorizontalAlignment="Stretch" Command="{Binding EnterMarketCommand}"/>
+                            <Button Classes="ExchangeButton" Grid.Row="2" Content="Enter" HorizontalAlignment="Stretch" Command="{Binding EnterMarketCommand}"/>
                         </Grid>    
                     </Grid>
                 </Grid>

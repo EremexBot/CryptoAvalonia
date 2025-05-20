@@ -132,7 +132,7 @@ namespace CryptoMarketClient.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Base Volume.
+        ///   Looks up a localized string similar to B. Volume.
         /// </summary>
         public static string Column_Volume {
             get {
